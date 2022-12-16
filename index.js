@@ -40,6 +40,15 @@ app.use((err, req, res, next) => {
     message,
   });
 });
+app.use(express.static(path.join(__dirname, "./client/build")));
+app.get("*", function (_, res) {
+  res.sendFile(
+    path.join(__dirname, "./client/build/index.html"),
+    function (err) {
+      res.status(500).send(err);
+    }
+  );
+});
 
 app.listen(8800, () => {
   connect();
